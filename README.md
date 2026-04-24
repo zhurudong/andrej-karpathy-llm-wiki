@@ -92,6 +92,8 @@ The LLM scans for broken links, orphan pages, contradictions, stale claims, and 
 
 ## Directory layout
 
+Every knowledge base instance follows the same convention:
+
 ```
 my-knowledge-base/
 ├── CLAUDE.md                # Rules file (the LLM reads this to run)
@@ -110,6 +112,20 @@ my-knowledge-base/
 ```
 
 The core of the two-layer design: **`raw/` is the immutable factual substrate; `wiki/` is the LLM's current understanding of those facts.** Understanding can be regenerated anytime; facts are preserved forever.
+
+This repo itself is laid out as:
+
+```
+.
+├── CLAUDE.md  ──▶  templates/CLAUDE.md  (symlink; lets Claude Code run at repo root)
+├── templates/
+│   ├── CLAUDE.md            # Chinese rules template
+│   └── CLAUDE.en.md         # English rules template
+└── examples/                # A real sample instance
+    ├── CLAUDE.md            # Also symlinked to templates/CLAUDE.md
+    ├── raw/
+    └── wiki/
+```
 
 ## Browsing (optional)
 
@@ -131,7 +147,11 @@ These are **optional viewers**. The project doesn't depend on any of them.
 
 ## This repo itself
 
-This repository is a live example — a knowledge base about [Andrej Karpathy](https://karpathy.ai)'s writing and talks. Clone it to see a real instance, or just grab `templates/CLAUDE.en.md` and start your own.
+The `examples/` directory is a real sample instance seeded with a few LLM-engineering articles (starting with OpenAI's [Harness Engineering](https://openai.com/index/harness-engineering/)). Clone the repo to see what the generated summaries / entities / concepts actually look like, or just grab `templates/CLAUDE.en.md` and start your own.
+
+## Credits
+
+The `CLAUDE.md` knowledge-base design is inspired by Andrej Karpathy's gist: <https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f>. This project builds on that idea with a concrete structure — a two-layer design (immutable `raw/` + regenerable `wiki/`), a cross-link topology, ingest/query/lint workflows, and a cross-CLI template.
 
 ## License
 
