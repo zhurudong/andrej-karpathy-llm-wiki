@@ -92,6 +92,8 @@ LLM 会扫描断链、孤立页面、矛盾描述、过时信息、缺失交叉�
 
 ## 目录结构
 
+每个知识库实例遵循同一套约定：
+
 ```
 my-knowledge-base/
 ├── CLAUDE.md                # 规则文件（LLM 读这个来运行）
@@ -110,6 +112,20 @@ my-knowledge-base/
 ```
 
 两层设计的核心：**`raw/` 是不可变的事实底座，`wiki/` 是 LLM 对事实的当前理解**。理解可以随时重新生成，事实永远保留。
+
+本仓库自身的布局：
+
+```
+.
+├── CLAUDE.md  ──▶  templates/CLAUDE.md  (软链，方便仓库根直接跑)
+├── templates/
+│   ├── CLAUDE.md            # 中文规则模板
+│   └── CLAUDE.en.md         # 英文规则模板
+└── examples/                # 真实样例实例
+    ├── CLAUDE.md            # 同样软链到 templates/CLAUDE.md
+    ├── raw/
+    └── wiki/
+```
 
 ## 浏览方式（可选）
 
@@ -131,7 +147,11 @@ my-knowledge-base/
 
 ## 这个仓库本身
 
-本仓库就是一个示例实例——[Andrej Karpathy](https://karpathy.ai) 相关文章的知识库。你可以直接克隆来看真实例子，也可以只取 `templates/CLAUDE.md` 开始自己的。
+`examples/` 目录是一个真实运行过的样例，收录了若干 LLM 工程相关文章（初始为 OpenAI 的 [Harness Engineering](https://openai.com/zh-Hans-CN/index/harness-engineering/)）。你可以直接克隆来看生成出的 summaries / entities / concepts 长什么样，也可以只取 `templates/CLAUDE.md` 开始自己的。
+
+## 致谢
+
+`CLAUDE.md` 知识库设计思路源于 Andrej Karpathy 的 gist：<https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f>。本项目在其之上做了工程化落地——双层结构（raw 不可变 / wiki 可重生）、交叉链接拓扑、摄入/查询/lint 工作流、跨 LLM CLI 的模板化。
 
 ## 许可
 
