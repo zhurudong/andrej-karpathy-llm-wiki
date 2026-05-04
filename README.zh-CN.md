@@ -2,11 +2,15 @@
 
 [English](./README.md) | **简体中文**
 
+> 一个 `CLAUDE.md` = 一个能自我维护的本地知识库。无后端、无向量库、无 RAG 框架。
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/zhurudong/andrej-karpathy-llm-wiki/main/install.sh | bash -s my-kb zh
+```
+
+跑完上面这行，进 `my-kb/` 启动 LLM CLI 说"收录 https://example.com/article"，你就有了一个由 LLM 自己抓取、整理、索引、查询的知识库。所有内容都是纯 markdown，用任何编辑器都能打开。
+
 > 受 Andrej Karpathy 的 gist 启发：<https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f>。
-
-一个由 LLM 维护的本地知识库模板。不依赖任何后端服务、不需要向量数据库、不需要 RAG 框架——只用一个 `CLAUDE.md` 文件约定工作规则，让 LLM CLI 工具（Claude Code / Codex / OpenCode 等）自己抓取、整理、索引、查询。
-
-所有内容都是纯 markdown 文件，用你喜欢的任何编辑器都能打开。
 
 ## 为什么
 
