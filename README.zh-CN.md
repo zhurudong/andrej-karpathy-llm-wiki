@@ -1,4 +1,4 @@
-# LLM-Maintained Knowledge Base
+# 受 Karpathy 启发的 LLM 知识管理
 
 [English](./README.md) | **简体中文**
 
@@ -35,9 +35,7 @@ curl -fsSL https://raw.githubusercontent.com/zhurudong/andrej-karpathy-llm-wiki/
 
 ## 快速开始
 
-两种方式安装，推荐“一键安装”。
-
-### 一键安装
+### 一键安装（推荐）
 
 一行命令搞定——目录、`CLAUDE.md`、`AGENTS.md` 软链、空的 `raw/` + `wiki/` 骨架全部就绪：
 
