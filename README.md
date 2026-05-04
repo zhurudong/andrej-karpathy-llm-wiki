@@ -1,4 +1,4 @@
-# LLM-Maintained Knowledge Base
+# Karpathy-Inspired LLM Knowledge Base
 
 **English** | [简体中文](./README.zh-CN.md)
 
@@ -37,7 +37,7 @@ Typical use cases:
 
 Two ways to install — the one-liner is recommended.
 
-### One-line install
+### One-line install (recommended)
 
 One command bootstraps a fresh knowledge base — directory, `CLAUDE.md`, `AGENTS.md` symlink, and the empty `raw/` + `wiki/` skeleton:
 
