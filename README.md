@@ -35,8 +35,6 @@ Typical use cases:
 
 ## Quick Start
 
-Two ways to install — the one-liner is recommended.
-
 ### One-line install (recommended)
 
 One command bootstraps a fresh knowledge base — directory, `CLAUDE.md`, `AGENTS.md` symlink, and the empty `raw/` + `wiki/` skeleton:

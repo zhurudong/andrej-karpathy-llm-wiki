@@ -8,7 +8,7 @@
 curl -fsSL https://raw.githubusercontent.com/zhurudong/andrej-karpathy-llm-wiki/main/install.sh | bash -s my-kb zh
 ```
 
-跑完上面这行，进 `my-kb/` 启动 LLM CLI 说"收录 https://example.com/article"，你就有了一个由 LLM 自己抓取、整理、索引、查询的知识库。所有内容都是纯 markdown，用任何编辑器都能打开。
+跑完上面这行，进 `my-kb/` 启动 LLM CLI 说"收录 https://example.com/article" ，你就有了一个由 LLM 自己抓取、整理、索引、查询的知识库。所有内容都是纯 markdown，用任何编辑器都能打开。
 
 > 受 Andrej Karpathy 的 gist 启发：<https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f>。
 
