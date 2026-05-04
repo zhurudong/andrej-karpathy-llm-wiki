@@ -31,25 +31,29 @@ Typical use cases:
 
 ## Quick Start
 
-Three commands get you running: create a directory, drop in `CLAUDE.md`, then talk to your LLM CLI in natural language. The CLI reads the rules file, fetches articles, generates `raw/` + `wiki/`, and answers questions — no extra setup.
+Two ways to install — the one-liner is recommended.
 
-### 1. Set up a directory
+### One-line install
+
+One command bootstraps a fresh knowledge base — directory, `CLAUDE.md`, `AGENTS.md` symlink, and the empty `raw/` + `wiki/` skeleton:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/zhurudong/andrej-karpathy-llm-wiki/main/install.sh | bash -s my-kb
+```
+
+Pass a directory name as the first arg (defaults to `my-knowledge-base`). After it finishes, `cd my-kb`, launch your LLM CLI, and start talking.
+
+### Manual install
+
+Prefer not to pipe a script into bash? Run these three commands instead:
 
 ```bash
 mkdir my-knowledge-base && cd my-knowledge-base
+curl -fsSL -o CLAUDE.md https://raw.githubusercontent.com/zhurudong/andrej-karpathy-llm-wiki/main/templates/CLAUDE.en.md
+ln -s CLAUDE.md AGENTS.md
 ```
 
-### 2. Copy the rules file
-
-Copy [`templates/CLAUDE.en.md`](https://github.com/zhurudong/andrej-karpathy-llm-wiki/blob/main/templates/CLAUDE.en.md) from this repo into your knowledge base root as `CLAUDE.md`:
-
-```bash
-curl -L -o CLAUDE.md https://github.com/zhurudong/andrej-karpathy-llm-wiki/raw/main/templates/CLAUDE.en.md
-```
-
-That single file is the entire "program" — it tells the LLM how to organize this knowledge base.
-
-Supported LLM CLIs (pick one):
+The single [`templates/CLAUDE.en.md`](https://github.com/zhurudong/andrej-karpathy-llm-wiki/blob/main/templates/CLAUDE.en.md) is the entire "program" — it tells the LLM how to organize this knowledge base. The `AGENTS.md` symlink keeps the same file usable across CLIs:
 
 | CLI | Convention file |
 |---|---|
@@ -58,13 +62,7 @@ Supported LLM CLIs (pick one):
 | [OpenCode](https://opencode.ai) | `AGENTS.md` |
 | Other agent CLIs that read a project rules file | see their docs |
 
-One command makes it compatible with all of them:
-
-```bash
-ln -s CLAUDE.md AGENTS.md
-```
-
-### 3. Start ingesting
+### Start ingesting
 
 Inside your LLM CLI, just use natural language:
 
@@ -80,7 +78,7 @@ save this article https://www.anthropic.com/engineering/harness-design-long-runn
 
 The LLM will automatically: fetch the page → save it as `raw/YYYY-MM-DD-title.md` → generate a summary → extract/update entity and concept pages → evaluate whether to generate a comparison or overview → update the index → append to the log.
 
-### 4. Ask questions
+### Ask questions
 
 Just ask:
 
@@ -92,7 +90,7 @@ what has this knowledge base captured about tokenizers?
 
 The LLM reads `wiki/_index.md` first to locate relevant pages, then synthesizes an answer. If the answer crosses multiple sources, it will offer to archive it under `wiki/synthesis/`.
 
-### 5. Health check
+### Health check
 
 ```
 lint wiki
@@ -136,7 +134,7 @@ These are **optional viewers**. The project doesn't depend on any of them.
 
 ## This repo itself
 
-The `examples/` directory is a real sample instance seeded with a few LLM-engineering articles (starting with OpenAI's [Harness Engineering](https://www.anthropic.com/engineering/harness-design-long-running-apps)). Clone the repo to see what the generated summaries / entities / concepts actually look like, or just grab `templates/CLAUDE.en.md` and start your own.
+The `examples/` directory is a real sample instance seeded with a few LLM-engineering articles (starting with OpenAI's [Harness Engineering](https://openai.com/index/harness-engineering/)). Clone the repo to see what the generated summaries / entities / concepts actually look like, or just grab `templates/CLAUDE.en.md` and start your own.
 
 ## Credits
 

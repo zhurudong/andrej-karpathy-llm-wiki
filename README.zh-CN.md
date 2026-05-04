@@ -31,25 +31,29 @@
 
 ## 快速开始
 
-三步就能跑起来：建目录 → 放入 `CLAUDE.md` → 在 LLM CLI 里用自然语言下指令。CLI 会读规则文件，自动抓取文章、生成 `raw/` 和 `wiki/`、回答问题——不需要任何额外配置。
+两种方式安装，推荐“一键安装”。
 
-### 1. 准备目录
+### 一键安装
+
+一行命令搞定——目录、`CLAUDE.md`、`AGENTS.md` 软链、空的 `raw/` + `wiki/` 骨架全部就绪：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/zhurudong/andrej-karpathy-llm-wiki/main/install.sh | bash -s my-kb zh
+```
+
+第一个参数是目录名（默认 `my-knowledge-base`），第二个参数 `zh`/`en` 选模板语言。跑完 `cd my-kb`，进 LLM CLI 直接用自然语言下指令。
+
+### 手动安装
+
+不想把脚本管道给 bash？三行命令同样搞定：
 
 ```bash
 mkdir my-knowledge-base && cd my-knowledge-base
+curl -fsSL -o CLAUDE.md https://raw.githubusercontent.com/zhurudong/andrej-karpathy-llm-wiki/main/templates/CLAUDE.md
+ln -s CLAUDE.md AGENTS.md
 ```
 
-### 2. 拷贝规则文件
-
-从本仓库把 [`templates/CLAUDE.md`](https://github.com/zhurudong/andrej-karpathy-llm-wiki/blob/main/templates/CLAUDE.md)（中文版）复制到你的知识库根目录：
-
-```bash
-curl -L -o CLAUDE.md https://github.com/zhurudong/andrej-karpathy-llm-wiki/raw/main/templates/CLAUDE.md
-```
-
-这一个文件就是全部"程序"——它告诉 LLM 如何组织这个知识库。
-
-支持的 LLM CLI（任选其一）：
+唯一一个 [`templates/CLAUDE.md`](https://github.com/zhurudong/andrej-karpathy-llm-wiki/blob/main/templates/CLAUDE.md) 文件就是全部"程序"——它告诉 LLM 如何组织知识库。`AGENTS.md` 软链让同一个文件能被多家 CLI 识别：
 
 | CLI                                                | 约定文件                          |
 | -------------------------------------------------- | ----------------------------- |
@@ -58,13 +62,7 @@ curl -L -o CLAUDE.md https://github.com/zhurudong/andrej-karpathy-llm-wiki/raw/m
 | [OpenCode](https://opencode.ai)                    | `AGENTS.md`                   |
 | 其他支持项目规则文件的 Agent CLI                              | 参见各自文档                        |
 
-一条命令兼容多家：
-
-```bash
-ln -s CLAUDE.md AGENTS.md
-```
-
-### 3. 开始收录
+### 开始收录
 
 在你的 LLM CLI 里，直接用自然语言：
 
@@ -80,7 +78,7 @@ ln -s CLAUDE.md AGENTS.md
 
 LLM 会自动执行：抓取网页 → 保存到 `raw/YYYY-MM-DD-标题.md` → 生成摘要 → 抽取/更新实体与概念页面 → 评估是否生成对比/综述 → 更新索引 → 写入操作日志。
 
-### 4. 开始查询
+### 开始查询
 
 直接问问题：
 
@@ -92,7 +90,7 @@ RLHF 和 DPO 的核心区别是什么？
 
 LLM 会先读 `wiki/_index.md` 定位相关页面，再综合回答，必要时建议把答案归档到 `wiki/synthesis/`。
 
-### 5. 健康检查
+### 健康检查
 
 ```
 lint wiki
