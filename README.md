@@ -2,6 +2,8 @@
 
 **English** | [简体中文](./README.zh-CN.md)
 
+> Inspired by Andrej Karpathy's gist: <https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f>.
+
 A local knowledge base template maintained by an LLM. No backend, no vector database, no RAG framework — just a single `CLAUDE.md` file that tells any LLM CLI (Claude Code / Codex / OpenCode / …) how to fetch, organize, index, and query your notes.
 
 Everything is plain markdown. Open it with any editor.
@@ -20,21 +22,29 @@ This project takes a third path: **let the LLM do the organizing, use markdown f
 - The knowledge graph emerges naturally from `[[wiki-link]]` — no graph DB
 - Switching LLM tools requires zero data migration — the rules live in `CLAUDE.md`
 
+Typical use cases:
+
+- **Reading papers** — drop an arXiv link; the LLM generates a summary and links it to existing concepts
+- **Following a field** — ingest industry blogs regularly; `overviews/` organically form topic surveys
+- **Archiving your own thinking** — ask questions, let the LLM store synthesized answers in `synthesis/`, building your own opinion library
+- **Team collaboration** — push to Git; teammates maintain the same knowledge base with their own LLM CLIs
+
 ## Quick Start
+
+Three commands get you running: create a directory, drop in `CLAUDE.md`, then talk to your LLM CLI in natural language. The CLI reads the rules file, fetches articles, generates `raw/` + `wiki/`, and answers questions — no extra setup.
 
 ### 1. Set up a directory
 
 ```bash
 mkdir my-knowledge-base && cd my-knowledge-base
-git init
 ```
 
 ### 2. Copy the rules file
 
-Copy [`templates/CLAUDE.en.md`](./templates/CLAUDE.en.md) from this repo into your knowledge base root as `CLAUDE.md`:
+Copy [`templates/CLAUDE.en.md`](https://github.com/zhurudong/andrej-karpathy-llm-wiki/blob/main/templates/CLAUDE.en.md) from this repo into your knowledge base root as `CLAUDE.md`:
 
 ```bash
-curl -o CLAUDE.md https://raw.githubusercontent.com/<your-fork>/main/templates/CLAUDE.en.md
+curl -L -o CLAUDE.md https://github.com/zhurudong/andrej-karpathy-llm-wiki/raw/main/templates/CLAUDE.en.md
 ```
 
 That single file is the entire "program" — it tells the LLM how to organize this knowledge base.
@@ -59,13 +69,13 @@ ln -s CLAUDE.md AGENTS.md
 Inside your LLM CLI, just use natural language:
 
 ```
-ingest https://karpathy.github.io/2025/08/26/trends/
+ingest https://www.anthropic.com/engineering/harness-design-long-running-apps
 ```
 
 or:
 
 ```
-save this article https://example.com/article
+save this article https://www.anthropic.com/engineering/harness-design-long-running-apps
 ```
 
 The LLM will automatically: fetch the page → save it as `raw/YYYY-MM-DD-title.md` → generate a summary → extract/update entity and concept pages → evaluate whether to generate a comparison or overview → update the index → append to the log.
@@ -113,20 +123,6 @@ my-knowledge-base/
 
 The core of the two-layer design: **`raw/` is the immutable factual substrate; `wiki/` is the LLM's current understanding of those facts.** Understanding can be regenerated anytime; facts are preserved forever.
 
-This repo itself is laid out as:
-
-```
-.
-├── CLAUDE.md  ──▶  templates/CLAUDE.md  (symlink; lets Claude Code run at repo root)
-├── templates/
-│   ├── CLAUDE.md            # Chinese rules template
-│   └── CLAUDE.en.md         # English rules template
-└── examples/                # A real sample instance
-    ├── CLAUDE.md            # Also symlinked to templates/CLAUDE.md
-    ├── raw/
-    └── wiki/
-```
-
 ## Browsing (optional)
 
 Everything generated is standard markdown plus `[[wiki-link]]` format. Any editor works; if you want bidirectional links and a graph view, try:
@@ -138,16 +134,9 @@ Everything generated is standard markdown plus `[[wiki-link]]` format. Any edito
 
 These are **optional viewers**. The project doesn't depend on any of them.
 
-## Typical use cases
-
-- **Reading papers** — drop an arXiv link; the LLM generates a summary and links it to existing concepts
-- **Following a field** — ingest industry blogs regularly; `overviews/` organically form topic surveys
-- **Archiving your own thinking** — ask questions, let the LLM store synthesized answers in `synthesis/`, building your own opinion library
-- **Team collaboration** — push to Git; teammates maintain the same knowledge base with their own LLM CLIs
-
 ## This repo itself
 
-The `examples/` directory is a real sample instance seeded with a few LLM-engineering articles (starting with OpenAI's [Harness Engineering](https://openai.com/index/harness-engineering/)). Clone the repo to see what the generated summaries / entities / concepts actually look like, or just grab `templates/CLAUDE.en.md` and start your own.
+The `examples/` directory is a real sample instance seeded with a few LLM-engineering articles (starting with OpenAI's [Harness Engineering](https://www.anthropic.com/engineering/harness-design-long-running-apps)). Clone the repo to see what the generated summaries / entities / concepts actually look like, or just grab `templates/CLAUDE.en.md` and start your own.
 
 ## Credits
 
