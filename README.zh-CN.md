@@ -2,6 +2,8 @@
 
 [English](./README.md) | **简体中文**
 
+> 受 Andrej Karpathy 的 gist 启发：<https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f>。
+
 一个由 LLM 维护的本地知识库模板。不依赖任何后端服务、不需要向量数据库、不需要 RAG 框架——只用一个 `CLAUDE.md` 文件约定工作规则，让 LLM CLI 工具（Claude Code / Codex / OpenCode 等）自己抓取、整理、索引、查询。
 
 所有内容都是纯 markdown 文件，用你喜欢的任何编辑器都能打开。
@@ -20,33 +22,41 @@
 - 知识图谱由 `[[wiki-link]]` 自然形成，不需要图数据库
 - 换 LLM 工具不需要迁移数据——规则都在 `CLAUDE.md` 里
 
+典型用法：
+
+- **读论文做笔记**：抓 arXiv 链接，LLM 自动生成摘要并关联已有概念
+- **跟踪某个领域**：定期收录行业博客，`overviews/` 会自动形成主题综述
+- **个人思考归档**：问问题时让 LLM 把综合答案存到 `synthesis/`，逐步形成自己的观点库
+- **团队协作**：推到 Git，团队成员各自用自己的 LLM CLI 维护同一个知识库
+
 ## 快速开始
+
+三步就能跑起来：建目录 → 放入 `CLAUDE.md` → 在 LLM CLI 里用自然语言下指令。CLI 会读规则文件，自动抓取文章、生成 `raw/` 和 `wiki/`、回答问题——不需要任何额外配置。
 
 ### 1. 准备目录
 
 ```bash
 mkdir my-knowledge-base && cd my-knowledge-base
-git init
 ```
 
 ### 2. 拷贝规则文件
 
-从本仓库把 [`templates/CLAUDE.md`](./templates/CLAUDE.md)（中文版）复制到你的知识库根目录：
+从本仓库把 [`templates/CLAUDE.md`](https://github.com/zhurudong/andrej-karpathy-llm-wiki/blob/main/templates/CLAUDE.md)（中文版）复制到你的知识库根目录：
 
 ```bash
-curl -O https://raw.githubusercontent.com/<your-fork>/main/templates/CLAUDE.md
+curl -L -o CLAUDE.md https://github.com/zhurudong/andrej-karpathy-llm-wiki/raw/main/templates/CLAUDE.md
 ```
 
 这一个文件就是全部"程序"——它告诉 LLM 如何组织这个知识库。
 
 支持的 LLM CLI（任选其一）：
 
-| CLI | 约定文件 |
-|---|---|
-| [Claude Code](https://docs.claude.com/claude-code) | `CLAUDE.md` |
-| [Codex CLI](https://github.com/openai/codex) | `AGENTS.md`（软链到 CLAUDE.md 即可） |
-| [OpenCode](https://opencode.ai) | `AGENTS.md` |
-| 其他支持项目规则文件的 Agent CLI | 参见各自文档 |
+| CLI                                                | 约定文件                          |
+| -------------------------------------------------- | ----------------------------- |
+| [Claude Code](https://docs.claude.com/claude-code) | `CLAUDE.md`                   |
+| [Codex CLI](https://github.com/openai/codex)       | `AGENTS.md`（软链到 CLAUDE.md 即可） |
+| [OpenCode](https://opencode.ai)                    | `AGENTS.md`                   |
+| 其他支持项目规则文件的 Agent CLI                              | 参见各自文档                        |
 
 一条命令兼容多家：
 
@@ -59,13 +69,13 @@ ln -s CLAUDE.md AGENTS.md
 在你的 LLM CLI 里，直接用自然语言：
 
 ```
-收录 https://karpathy.github.io/2025/08/26/trends/
+收录 https://www.anthropic.com/engineering/harness-design-long-running-apps
 ```
 
 或者：
 
 ```
-抓取这篇文章 https://example.com/article
+抓取这篇文章 https://www.anthropic.com/engineering/harness-design-long-running-apps
 ```
 
 LLM 会自动执行：抓取网页 → 保存到 `raw/YYYY-MM-DD-标题.md` → 生成摘要 → 抽取/更新实体与概念页面 → 评估是否生成对比/综述 → 更新索引 → 写入操作日志。
@@ -113,20 +123,6 @@ my-knowledge-base/
 
 两层设计的核心：**`raw/` 是不可变的事实底座，`wiki/` 是 LLM 对事实的当前理解**。理解可以随时重新生成，事实永远保留。
 
-本仓库自身的布局：
-
-```
-.
-├── CLAUDE.md  ──▶  templates/CLAUDE.md  (软链，方便仓库根直接跑)
-├── templates/
-│   ├── CLAUDE.md            # 中文规则模板
-│   └── CLAUDE.en.md         # 英文规则模板
-└── examples/                # 真实样例实例
-    ├── CLAUDE.md            # 同样软链到 templates/CLAUDE.md
-    ├── raw/
-    └── wiki/
-```
-
 ## 浏览方式（可选）
 
 生成的都是标准 markdown + `[[wiki-link]]` 格式。任何编辑器都能打开；如果你想要更好的双向链接和图谱视图，可以用：
@@ -137,13 +133,6 @@ my-knowledge-base/
 - **纯命令行**：`grep -r "\[\[" wiki/` 足以应付大多数查询
 
 这些都是**可选的浏览工具**，本项目不依赖它们。
-
-## 典型用法
-
-- **读论文做笔记**：抓 arXiv 链接，LLM 自动生成摘要并关联已有概念
-- **跟踪某个领域**：定期收录行业博客，`overviews/` 会自动形成主题综述
-- **个人思考归档**：问问题时让 LLM 把综合答案存到 `synthesis/`，逐步形成自己的观点库
-- **团队协作**：推到 Git，团队成员各自用自己的 LLM CLI 维护同一个知识库
 
 ## 这个仓库本身
 
