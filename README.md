@@ -2,11 +2,15 @@
 
 **English** | [简体中文](./README.zh-CN.md)
 
+> One `CLAUDE.md` = a self-maintaining local knowledge base. No backend, no vector DB, no RAG framework.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/zhurudong/andrej-karpathy-llm-wiki/main/install.sh | bash -s my-kb
+```
+
+After that one line, open your LLM CLI inside `my-kb/` and say `ingest https://example.com/article` — you now have a knowledge base the LLM organizes, indexes, and queries for you. Everything is plain markdown; open it with any editor.
+
 > Inspired by Andrej Karpathy's gist: <https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f>.
-
-A local knowledge base template maintained by an LLM. No backend, no vector database, no RAG framework — just a single `CLAUDE.md` file that tells any LLM CLI (Claude Code / Codex / OpenCode / …) how to fetch, organize, index, and query your notes.
-
-Everything is plain markdown. Open it with any editor.
 
 ## Why
 
