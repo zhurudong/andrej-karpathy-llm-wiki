@@ -26,5 +26,19 @@ curl -fsSL -o CLAUDE.md \
 ln -sf CLAUDE.md AGENTS.md
 touch wiki/_index.md wiki/_log.md
 
-echo "✅ Done. Now run your LLM CLI inside: $DIR"
-echo "   Then say: ingest https://your-favorite-article.com"
+cat <<EOF
+
+✅ Done. Next steps:
+
+  1. Enter the knowledge base:
+       cd $DIR
+
+  2. Launch your LLM CLI in that directory (pick one):
+       claude          # Claude Code   — reads CLAUDE.md
+       codex           # Codex CLI     — reads AGENTS.md (already symlinked)
+       opencode        # OpenCode      — reads AGENTS.md
+
+  3. Try the sample article:
+       ingest https://www.anthropic.com/engineering/harness-design-long-running-apps
+
+EOF
