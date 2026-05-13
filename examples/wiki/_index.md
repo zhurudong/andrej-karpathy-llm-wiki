@@ -1,51 +1,51 @@
 ---
 type: index
 created: 2026-04-24
-updated: 2026-04-24
+updated: 2026-05-12
 ---
 
-# 知识库总索引
+# Knowledge Base Index
 
-## 摘要（summaries/）
+## Summaries (summaries/)
 
-- [[summaries/2026-02-11-harness-engineering]] — OpenAI Ryan Lopopolo 关于用 Codex 在 5 个月内从零搭建一百万行代码产品的工程实践
+- [[summaries/2026-02-11-harness-engineering-en]] — OpenAI's Ryan Lopopolo on building a ~1M-LOC product in 5 months from an empty git repo, with Codex authoring every line of code
 
-## 实体（entities/）
+## Entities (entities/)
 
-### 组织
+### Organizations
 
-- [[entities/OpenAI]] — AI 实验室，Codex 的出品方
+- [[entities/OpenAI]] — AI lab; maker of Codex
 
-### 产品
+### Products
 
-- [[entities/Codex]] — OpenAI 的编码智能体，支持 CLI 和云端运行
+- [[entities/Codex]] — OpenAI's coding agent (CLI and cloud)
 
-### 人物
+### People
 
-- [[entities/Ryan Lopopolo]] — OpenAI 技术人员，"零人工代码"实验的主笔
+- [[entities/Ryan Lopopolo]] — OpenAI Member of Technical Staff; author of the "zero manually-written code" post
 
-## 概念（concepts/）
+## Concepts (concepts/)
 
-- [[concepts/Harness Engineering]] — 当代码完全由智能体生成时的工程方法论总框架
-- [[concepts/Codebase as System of Record]] — 把仓库当成组织知识的唯一权威来源
-- [[concepts/Agent Readability]] — 让应用运行时状态对智能体直接可读
+- [[concepts/Harness Engineering]] — The overarching methodology for a fully agent-generated codebase
+- [[concepts/Codebase as System of Record]] — Treating the repo as the single authoritative store of organizational knowledge
+- [[concepts/Agent Readability]] — Making runtime application state directly legible to the agent
 
-## 对比（comparisons/）
+## Comparisons (comparisons/)
 
-_暂无_
+_None yet._
 
-## 综述（overviews/）
+## Overviews (overviews/)
 
-_暂无（需要 ≥3 篇相关摘要才会生成）_
+_None yet (need ≥3 related summaries to generate one)._
 
-## 归档问答（synthesis/）
+## Synthesis (synthesis/)
 
-_暂无_
+_None yet._
 
 ---
 
-## 主题速览
+## Quick lookup by topic
 
-- **智能体编码实践**：[[concepts/Harness Engineering]] + [[summaries/2026-02-11-harness-engineering]]
-- **知识管理**：[[concepts/Codebase as System of Record]]
-- **可观测性 for 智能体**：[[concepts/Agent Readability]]
+- **Agentic coding in practice**: [[concepts/Harness Engineering]] + [[summaries/2026-02-11-harness-engineering-en]]
+- **Knowledge management for agents**: [[concepts/Codebase as System of Record]]
+- **Observability for agents**: [[concepts/Agent Readability]]

@@ -1,25 +1,25 @@
 ---
 type: entity
 created: 2026-04-24
-updated: 2026-04-24
+updated: 2026-05-12
 tags: [company, ai-lab]
 aliases: [OpenAI]
 ---
 
 # OpenAI
 
-AI 实验室和公司，[[entities/Codex]] 的出品方。本知识库目前仅收录一篇来自 OpenAI 官方博客的工程实践文章。
+An AI research lab and company; the maker of [[entities/Codex]]. This knowledge base currently captures one engineering post from the OpenAI blog about Codex being used internally to build an entire product with zero manually-written code.
 
-## 相关来源
+## Sources here
 
-- [[summaries/2026-02-11-harness-engineering]]（Ryan Lopopolo 关于 Codex 内部应用的工程博客）
+- [[summaries/2026-02-11-harness-engineering-en]] — Ryan Lopopolo's engineering post on internal Codex application
 
-## 相关实体
+## Related entities
 
 - [[entities/Codex]]
 - [[entities/Ryan Lopopolo]]
 
-## 相关概念
+## Related concepts
 
 - [[concepts/Harness Engineering]]
 - [[concepts/Codebase as System of Record]]

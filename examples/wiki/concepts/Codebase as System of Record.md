@@ -1,79 +1,87 @@
 ---
 type: concept
 created: 2026-04-24
-updated: 2026-04-24
+updated: 2026-05-12
 tags: [methodology, knowledge-management, agent-first]
-aliases: [Codebase as System of Record, 仓库即记录系统]
+aliases: [Codebase as System of Record, repo as system of record]
 ---
 
-# Codebase as System of Record（仓库即记录系统）
+# Codebase as System of Record
 
-把代码仓库当成组织知识的**唯一权威来源**，而不是把设计决策、架构讨论、团队共识散落在 Google Docs / Slack / 人脑里。这是 [[concepts/Harness Engineering]] 的一个核心支柱。
+Treating the code repository as the **single authoritative source** of organizational knowledge — design decisions, architectural discussions, team agreements — rather than letting that knowledge live scattered across Google Docs, Slack, and people's heads. A core pillar of [[concepts/Harness Engineering]].
 
-## 为什么（智能体视角）
+## Why (from the agent's point of view)
 
-> 从智能体的角度来看，它在运行时无法在情境中访问的任何内容都是不存在的。
+> Anything the agent cannot access in-context while running effectively doesn't exist.
 
-- Slack 讨论敲定的架构约定 → 智能体不知道
-- 设计评审会议决定的 API 风格 → 智能体不知道
-- Google Docs 里的产品规范 → 智能体不知道
+- An architectural convention agreed in Slack → invisible to the agent
+- API style decided in a design review meeting → invisible
+- Product spec parked in Google Docs → invisible
 
-智能体只能看到仓库里的、已版本化的、可被情境读取的工件。外部知识对它等价于**三个月前才入职的新员工对历史决策一无所知**。
+The agent can only see versioned artifacts in the repository that fit into its working context. External knowledge is to the agent what early decisions are to a hire who joins three months later: gone.
 
-## 实践（来自 [[summaries/2026-02-11-harness-engineering]]）
+## Practice (from [[summaries/2026-02-11-harness-engineering-en]])
 
-### AGENTS.md 是地图，不是百科全书
+### `AGENTS.md` is the table of contents, not the encyclopedia
 
-失败模式："一个大型的 AGENTS.md" ——
-- 情境是稀缺资源，指令挤占任务代码
-- 过多指导 = 无指导（一切都"重要"= 一切都不重要）
-- 立刻腐烂，无法验证
-- 单个大 blob 无法做机械覆盖率检查
+Failure modes of the "one giant `AGENTS.md`" approach:
 
-正确做法：**约 100 行的 AGENTS.md** 作为入口地图，指向结构化的 `docs/`。
+- Context is scarce — instructions crowd out task and code
+- Too much guidance = no guidance (when everything is "important", nothing is)
+- Rots instantly; impossible to verify mechanically
+- A single blob cannot be checked for coverage, freshness, ownership, or cross-link integrity
 
-### 典型 docs/ 结构
+Correct shape: an `AGENTS.md` of ~100 lines acting as an entry **map**, pointing into a structured `docs/` tree.
+
+### Typical `docs/` layout
 
 ```
 AGENTS.md
 ARCHITECTURE.md
 docs/
-├── design-docs/          # 设计文档 + 核心理念（core-beliefs）
-├── exec-plans/           # 执行计划（active / completed）+ 技术债务追踪
-├── generated/            # 自动生成产物（如 db-schema.md）
-├── product-specs/        # 产品规范
-├── references/           # 外部依赖的 LLM-friendly 参考（design-system-reference-llms.txt 等）
+├── design-docs/          # Design documents + a core-beliefs file
+├── exec-plans/           # Execution plans (active / completed) + tech-debt tracker
+├── generated/            # Auto-generated artifacts (e.g., db-schema.md)
+├── product-specs/        # Product specifications
+├── references/           # LLM-friendly references for external dependencies
 ├── DESIGN.md / FRONTEND.md / PLANS.md / PRODUCT_SENSE.md
 ├── QUALITY_SCORE.md / RELIABILITY.md / SECURITY.md
 ```
 
-### 执行计划是一流工件
+### Execution plans are first-class artifacts
 
-- 小变更：临时轻量计划
-- 复杂工作：结构化执行计划 + 进度/决策日志
-- 全部 commit 进仓库 → 智能体无需外部情境就能续作
+- Small changes: lightweight ephemeral plans
+- Complex work: structured execution plans with progress and decision logs
+- All committed into the repo → the agent can resume work without external context
 
-### 渐进式披露
+### Progressive disclosure
 
-智能体从小而稳定的切入点起步，按需展开更深文档，不会一开始就被百科全书淹没。
+The agent starts at a small, stable entry point and follows pointers to deeper documentation only when relevant — instead of being drowned in a 1,000-page manual up front.
 
-## 维护
+## Maintenance
 
-- **linter + CI** 验证知识库新鲜度、交叉链接、结构正确
-- 定期运行的 **"doc-gardening" 智能体**扫描过时/废弃文档，自动发起修复 PR
+- **Linters + CI** validate freshness, cross-link integrity, and structural correctness
+- A recurring **"doc-gardening" agent** scans for stale or obsolete documentation that no longer reflects code behavior, and opens fix-up PRs
 
-## 引申
+## Echoes elsewhere
 
-这个思路和静态知识库（本仓库自身）的设计哲学高度一致：
-- raw 层 = 不可变事实（代码本身 + 历史设计文档）
-- wiki 层 = LLM 可重新编译的理解（生成的摘要、概念、交叉链接）
-- 工作入口 = 一份小而稳的规则文件（AGENTS.md / CLAUDE.md）
+This idea aligns closely with the design of static knowledge bases — including this very repository:
 
-## 相关概念
+- raw layer = immutable facts (code itself + original design docs)
+- wiki layer = an LLM-recompilable *understanding* of those facts (summaries, concepts, cross-links)
+- Operating entry point = a small, stable rules file (`AGENTS.md` / `CLAUDE.md`)
+
+## Related concepts
 
 - [[concepts/Harness Engineering]]
 - [[concepts/Agent Readability]]
 
-## 来源
+## Related entities
 
-- [[summaries/2026-02-11-harness-engineering]]
+- [[entities/Codex]] — the agent whose system of record this is
+- [[entities/OpenAI]] — the organization applying this pattern internally
+- [[entities/Ryan Lopopolo]] — author of the source that articulates this pattern
+
+## Sources
+
+- [[summaries/2026-02-11-harness-engineering-en]]

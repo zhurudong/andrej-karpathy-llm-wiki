@@ -1,1 +1,1 @@
-../templates/CLAUDE.md
+../templates/CLAUDE.en.md
